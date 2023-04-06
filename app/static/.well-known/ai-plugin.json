@@ -1,6 +1,6 @@
 {
     "schema_version": "v1",
-    "name_for_human": "ChatBot for Prompt Engineering and Project Management as a SaaS",
+    "name_for_human": "ChatOffside",
     "name_for_model": "ChatOffside",
     "description_for_human": "ChatOffside Prompt Management.",
     "description_for_model": "Plugin for prompt engineering and project management.",
