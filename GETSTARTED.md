@@ -321,3 +321,9 @@ Alembic - https://youtu.be/SdcH6IEi6nE
 openssl rand -base64 32
 
 ee8b93f88b000896451907e0f6e7fe7b1fc62b096a3ff9b8166577eb9390150b
+
+## PROD Start Command
+
+```
+uvicorn main:app --host 0.0.0.0 --port 10000
+```
