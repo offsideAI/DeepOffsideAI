@@ -1,0 +1,17 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "ChatBot for Prompt Engineering and Project Management as a SaaS",
+    "name_for_model": "ChatOffside",
+    "description_for_human": "ChatOffside Prompt Management",
+    "logo_url": "https://pbs.twimg.com/profile_images/1644011721558818817/y5TL3J6v_400x400.jpg",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "https://chatoffside.onrender.com/openapi.json",
+        "is_user_authenticated": false
+    },
+    "legal_info_url": "http://offside.ai",
+    "contact_email": "info@offside.ai"
+}
