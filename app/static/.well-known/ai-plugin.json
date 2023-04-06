@@ -2,8 +2,8 @@
     "schema_version": "v1",
     "name_for_human": "ChatOffside",
     "name_for_model": "ChatOffside",
-    "description_for_human": "ChatOffside Prompt Management.",
-    "description_for_model": "Plugin for prompt engineering and project management.",
+    "description_for_human": "ChatOffside Project Management.",
+    "description_for_model": "Chatbot plugin for project management.",
     "logo_url": "https://pbs.twimg.com/profile_images/1644011721558818817/y5TL3J6v_400x400.jpg",
     "auth": {
         "type": "none"
