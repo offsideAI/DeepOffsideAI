@@ -26,12 +26,12 @@ ALGORITHM = os.environ.get("ALGORITHM")
 
 ###############################################################################
 # app = FastAPI()
-app = FastAPI(title ="CodeLabsProStack API", version="0.1.0")
+app = FastAPI(title ="ChatOffside API", version="0.1.0")
 
 #We define authorizations for middleware components
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8000", "https://codelabsprostack.onrender.com"],
+    allow_origins=["http://localhost:8000", "https://chatoffside.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -103,7 +103,7 @@ admin.add_view(PromptAdmin)
 ###############################################################################
 @app.get('/')
 def index():
-    return 'CodeLabsProStack'
+    return 'ChatOffside'
 
 
 app.include_router(authentication.router)
