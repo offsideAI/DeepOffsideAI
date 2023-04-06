@@ -262,9 +262,20 @@ alembic downgrade <version>
 ## Postgres Troubleshooting
 
 ```
+psql postgres
+
+postgres=# CREATE DATABASE chatoffside_dev_1;
+
+postgres=# CREATE ROLE chatoffside_admin_1;
+
+postgres=# GRANT ALL PRIVILEGES ON DATABASE chatoffside_dev_1 TO chatoffside_admin_1;
+
+ALTER ROLE "chatoffside_admin_1" WITH LOGIN;
+
 psql --host=localhost --username=my_user --dbname=my_database
 
-psql --host=localhost --username=codelabsprostack_admin_1 --dbname=codelabsprostack_prod_1
+==> psql --host=localhost --username=chatoffside_admin_1 --dbname=chatoffside_dev_1
+
 
 psql postgres -c 'SHOW config_file'
                 config_file
