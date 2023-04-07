@@ -37,6 +37,7 @@ class User(UserBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     posts: List["Post"] = Relationship(back_populates="author")
     prompts: List["Prompt"] = Relationship(back_populates="author")
+    projects: List["Project"] = Relationship(back_populates="author")
 
 class UserCreate(UserBase):
     pass
@@ -113,6 +114,36 @@ class PromptReadWithUser(PromptRead):
 
 class UserReadWithPrompts(UserRead):
     prompts: List[PromptRead] = []
+
+###############################################################################
+# Project
+class ProjectBase(SQLModel):
+    title: str
+    body: str = Field(sa_column=Column(TEXT))
+    author_id: Optional[int] = Field(default=None, foreign_key="user.id")
+
+
+class Project(ProjectBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    author: Optional[User] = Relationship(back_populates="projects")
+
+class ProjectRead(ProjectBase):
+    id: Optional[int] = None
+
+class ProjectCreate(ProjectBase):
+    pass
+
+class ProjectUpdate(SQLModel):
+    id: Optional[str] = None
+    title: Optional[str] = None
+    body: Optional[str] = None
+    author_id: Optional[int] = None
+
+class ProjectReadWithUser(ProjectRead):
+    author: Optional[UserRead] = None
+
+class UserReadWithProjects(UserRead):
+    projects: List[ProjectRead] = []
 
 ###############################################################################
 # Auth
