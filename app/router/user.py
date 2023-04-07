@@ -12,12 +12,7 @@ router = APIRouter(
     tags = ['Users']
 )
 
-###############################################################################
-##
-class Profession(str, Enum):
-    Engineer = 'Engineer'
-    TennisCoach = 'Tennis Coach'
-    PersonalTrainer = 'Personal Trainer'
+
 ###############################################################################
 ## User
 
@@ -27,8 +22,8 @@ def create_user(
     session: Session = Depends(database.get_session),
     user: models.UserCreate
 ):
-    db_user = models.User(name = user.name, email = user.email, password = Hash.bcrypt(user.password))
-    # db_user = models.User.from_orm(user)
+    # db_user = models.User(name = user.name, email = user.email, password = Hash.bcrypt(user.password))
+    db_user = models.User.from_orm(user)
     session.add(db_user)
     session.commit()
     session.refresh(db_user)

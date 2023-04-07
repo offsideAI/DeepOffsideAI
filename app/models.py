@@ -1,11 +1,10 @@
-from enum import Enum
 from sqlalchemy.dialects.postgresql import TEXT
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 # from database import Base
 
-from typing import List, Optional
+from typing import List, Optional, Union, ForwardRef
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
 # class Post(Base):
@@ -28,32 +27,43 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 #     posts = relationship("Post", back_populates="author")
 
 ###############################################################################
+# UserProfessionLink
+
+class UserProfessionLink(SQLModel, table=True):
+    profession_id: Optional[int] = Field(
+        default=None, foreign_key="profession.id", primary_key=True
+    )
+    user_id: Optional[int] = Field(
+        default=None, foreign_key="user.id", primary_key=True
+    )
+
+###############################################################################
 ## Profession
+class ProfessionBase(SQLModel):
+    title: str
+    description: str = Field(sa_column=Column(TEXT))
 
-class Profession(str, Enum):
-    Engineer = 'Engineer'
-    TennisCoach = 'Tennis Coach'
-    PersonalTrainer = 'Personal Trainer'
 
+class Profession(ProfessionBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    users: List["User"] = Relationship(back_populates="professions", link_model=UserProfessionLink)
 ###############################################################################
 # User
 class UserBase(SQLModel):
     name: str = Field(index=True)
     email: str
     password: str
-    profession: Profession = None
+    profession_id: Optional[int] = Field(default=None, foreign_key="profession.id")
 
 class User(UserBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     posts: List["Post"] = Relationship(back_populates="author")
     prompts: List["Prompt"] = Relationship(back_populates="author")
     projects: List["Project"] = Relationship(back_populates="author")
+    professions: List["Profession"] = Relationship(back_populates="users", link_model=UserProfessionLink)
 
 class UserCreate(UserBase):
     pass
-
-class UserRead(UserBase):
-    id: int
 
 class UserRead(UserBase):
     id: int
@@ -63,7 +73,31 @@ class UserUpdate(SQLModel):
     name: Optional[str] = None
     email: Optional[str] = None
     password: Optional[str] = None
-    profession: Optional[Profession] = None
+
+# User.update_forward_refs()
+###############################################################################
+## Profession (extended)
+
+class ProfessionCreate(ProfessionBase):
+    users: Optional[List["User"]] = None
+
+class ProfessionRead(ProfessionBase):
+    id: Optional[str] = None
+    users: Optional[List["User"]] = None
+
+class ProfessionUpdate(SQLModel):
+    id: Optional[str] = None
+    title: Optional[str] = None
+    description: Optional[str] = None
+    users: Optional[List["User"]] = None
+
+class ProfessionReadWithUser(ProfessionRead):
+    users: Optional[List["User"]] = None
+
+class UserReadWithProfessions(UserRead):
+    professions: List[ProfessionRead] = []
+    professions: List[ProfessionRead] = []
+
 
 ###############################################################################
 # Post
