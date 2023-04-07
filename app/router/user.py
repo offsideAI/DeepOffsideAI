@@ -13,6 +13,12 @@ router = APIRouter(
 )
 
 ###############################################################################
+##
+class Profession(str, Enum):
+    Engineer = 'Engineer'
+    TennisCoach = 'Tennis Coach'
+    PersonalTrainer = 'Personal Trainer'
+###############################################################################
 ## User
 
 @router.post('/users/', response_model=models.UserRead)

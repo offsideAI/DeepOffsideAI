@@ -1,3 +1,4 @@
+from enum import Enum
 from sqlalchemy.dialects.postgresql import TEXT
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
@@ -27,11 +28,20 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 #     posts = relationship("Post", back_populates="author")
 
 ###############################################################################
+## Profession
+
+class Profession(str, Enum):
+    Engineer = 'Engineer'
+    TennisCoach = 'Tennis Coach'
+    PersonalTrainer = 'Personal Trainer'
+
+###############################################################################
 # User
 class UserBase(SQLModel):
     name: str = Field(index=True)
     email: str
     password: str
+    profession: Profession = None
 
 class User(UserBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -53,6 +63,7 @@ class UserUpdate(SQLModel):
     name: Optional[str] = None
     email: Optional[str] = None
     password: Optional[str] = None
+    profession: Optional[Profession] = None
 
 ###############################################################################
 # Post
