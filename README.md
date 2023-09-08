@@ -188,9 +188,10 @@ npm run dev
 
 ## Alembic
 
-* Alembic for migrations
+### Alembic for migrations
 
-alembic init <alembic_folder_name>
+
+* Run alembic init <alembic_folder_name>
 
 ```
 pip install alembic
@@ -199,12 +200,14 @@ alembic init <alembic_migrations_folder> OR alembic init alembic
 
 * alembic.ini
 ```
-Add sqlalchemy.url = postgres://codelabsprostack_admin_1:@127.0.0.1/codelabsprostack_prod_1 to line 64 of alembic.ini
+
+* Add sqlalchemy.url = postgres://codelabsprostack_admin_1:@127.0.0.1/codelabsprostack_prod_1 to line 64 of alembic.ini
 ```
 
 OR
 
 In env.py, load CONNECTION_STRING from .env
+
 ```
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -255,6 +258,7 @@ alembic upgrade heads
 ```
 
 * Alembic downgrade
+
 ```
 alembic downgrade <version>
 ```
