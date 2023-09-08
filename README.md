@@ -202,7 +202,6 @@ alembic init <alembic_migrations_folder> OR alembic init alembic
 ```
 
 * Add sqlalchemy.url = postgres://codelabsprostack_admin_1:@127.0.0.1/codelabsprostack_prod_1 to line 64 of alembic.ini
-```
 
 OR
 
@@ -217,7 +216,8 @@ config.set_main_option('sqlalchemy.url', CONNECTION_STRING)
 ```
 
 
-* script.py.mako
+* Add sqlmodel import in script.py.mako
+
 ```
 Add
 import sqlmodel
@@ -226,6 +226,7 @@ import sqlalchemy as sa in script.py.mako
 ```
 
 * env.py - In env.py
+  
 Below
 from logging.config import fileConfig
 ```
