@@ -180,7 +180,7 @@ npm run dev
 ## Develop local
 
 ```
-cd web
+cd app
 
 npm run dev
 
