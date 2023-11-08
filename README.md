@@ -57,7 +57,7 @@ cd app
 
 python3 -m venv myvenv OR source myvenv/bin/activate
 
-pip install -r requirements.txt
+pip install -r app/requirements.txt
 ###################################
 
 uvicorn main:app --reload

@@ -36,6 +36,7 @@ pip install bcrypt
 ## Run blog
 
 ```
+cd app
 
 uvicorn main:app --reload
 
