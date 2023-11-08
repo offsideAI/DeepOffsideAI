@@ -48,7 +48,7 @@ pip install "passlib[bcrypt]"
 
 ```
 
-## Run backend locally
+## Develop backend locally
 
 ```
 conda deactivate
@@ -56,6 +56,8 @@ conda deactivate
 cd app
 
 python3 -m venv myvenv OR source myvenv/bin/activate
+
+source myvenv/bin/activate
 
 pip install -r app/requirements.txt
 ###################################
