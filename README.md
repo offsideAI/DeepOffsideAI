@@ -2,6 +2,8 @@
 ChatOffside is a chatbot for prompt management and project management
 ChatOffside is a SKAP Stack (SvelteKit - (fast)API - Postgres- stack) toolkit for building, testing and deploying fullstack AI plugins and applications
 
+This project uses FastAPI and SQLModel
+
 ## Useful Links
 
 https://codeverter.vercel.app
