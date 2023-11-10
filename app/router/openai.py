@@ -45,7 +45,7 @@ def dofunctioncalling(
     *,
     session: Session = Depends(database.get_session),
     current_user: models.User = Depends(oauth2.get_current_user),
-    query: str = Query(..., description="The content to send to the OpenAI model")
+    query: str = Query(..., description="The content to send to the OffsideAI model")
 ):
     client = openai.OpenAI()
     response = client.chat.completions.create(
