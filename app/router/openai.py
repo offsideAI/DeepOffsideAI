@@ -15,7 +15,7 @@ router = APIRouter(
 ###############################################################################
 ## OpenAI
 
-@router.get('/openai/jsonfunctioncalling')
+@router.get('/offsideai/jsonfunctioncalling')
 def dojsonfunctioncalling(
     *,
     session: Session = Depends(database.get_session),
@@ -40,7 +40,7 @@ def dojsonfunctioncalling(
     )
     return response.choices[0].message.content
 
-@router.get('/openai/functioncalling')
+@router.get('/offsideai/functioncalling')
 def dofunctioncalling(
     *,
     session: Session = Depends(database.get_session),
@@ -61,5 +61,33 @@ def dofunctioncalling(
                 
             }
         ]
+    )
+    return response.choices[0].message.content
+
+@router.get('/offsideai/vision')
+def dovisionmagic(
+    *,
+    session: Session = Depends(database.get_session),
+    current_user: models.User = Depends(oauth2.get_current_user),
+    query: str = Query(..., description="The content to send to the OffsideAI model")
+    
+):
+    client = openai.OpenAI()
+    response = client.chat.completions.create(
+        model="gpt-4-1106-preview",
+        messages = [
+            {
+                "type": "text"
+                "text": "What's in this image?"   
+            },
+            {
+                "type": "image_url",
+                "image_url": {
+                    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+                } 
+                
+            }
+        ],
+        max_tokens = 300
     )
     return response.choices[0].message.content
