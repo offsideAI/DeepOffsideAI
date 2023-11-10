@@ -9,7 +9,7 @@ import oauth2
 import openai
 
 router = APIRouter(
-    tags = ['openai']
+    tags = ['offsidei']
 )
 
 ###############################################################################
@@ -74,7 +74,7 @@ def dovisionmagic(
 ):
     client = openai.OpenAI()
     response = client.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model="gpt-4-vision-preview",
         messages = [
             {
                 "role": "user",

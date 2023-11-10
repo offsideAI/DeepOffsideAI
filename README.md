@@ -40,6 +40,8 @@ pip install bcrypt
 
 pip install sqladmin
 
+pip install openai
+
 ```
 ## JWT Dependencies
 
