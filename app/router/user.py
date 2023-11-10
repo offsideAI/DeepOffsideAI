@@ -22,8 +22,16 @@ def create_user(
     session: Session = Depends(database.get_session),
     user: models.UserCreate
 ):
-    # db_user = models.User(name = user.name, email = user.email, password = Hash.bcrypt(user.password))
-    db_user = models.User.from_orm(user)
+    # Hash the password
+    hashed_password = Hash.bcrypt(user.password)
+    
+    # Create a new User instance with the hashed password
+    db_user = models.User(
+        name=user.name, 
+        email=user.email, 
+        password=hashed_password
+    )
+    
     session.add(db_user)
     session.commit()
     session.refresh(db_user)

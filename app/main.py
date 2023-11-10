@@ -106,7 +106,7 @@ admin.add_view(PromptAdmin)
 
 @app.get('/')
 def index():
-    return 'ChatOffside'
+    return 'ChatOffside API'
 
 
 app.include_router(authentication.router)
