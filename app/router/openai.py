@@ -81,7 +81,7 @@ def dovisionmagic(
                 "content": [
                     {
                      "type": "text",
-                     "text": "What's in this image?"   
+                     "text": query   
                     },
                     {
                         "type": "image_url",
