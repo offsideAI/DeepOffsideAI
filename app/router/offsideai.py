@@ -88,7 +88,7 @@ async def dovisionmagic(
                 "content": [
                     {
                      "type": "text",
-                     "text": 
+                     "text": query 
                     },
                     {
                         "type": "image_url",
