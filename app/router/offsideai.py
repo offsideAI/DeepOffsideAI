@@ -68,8 +68,8 @@ def dofunctioncalling(
 @router.post('/offsideai/vision')
 async def dovisionmagic(
     *,
-    session: Session = Depends(database.get_session),
-    current_user: models.User = Depends(oauth2.get_current_user),
+    # session: Session = Depends(database.get_session),
+    # current_user: models.User = Depends(oauth2.get_current_user),
     # query: str = Query(..., description="The content to send to the OffsideAI model"),
     image: UploadFile = File(..., description="Image file to be processed")
     
@@ -101,5 +101,5 @@ async def dovisionmagic(
         ],
         max_tokens = 300
     )
-    # print(response.choices[0].message.content)
+    print(response.choices[0].message.content)
     return response.choices[0].message.content
