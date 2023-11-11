@@ -70,15 +70,16 @@ async def dovisionmagic(
     *,
     session: Session = Depends(database.get_session),
     current_user: models.User = Depends(oauth2.get_current_user),
-    query: str = Query(..., description="The content to send to the OffsideAI model"),
+    # query: str = Query(..., description="The content to send to the OffsideAI model"),
     image: UploadFile = File(..., description="Image file to be processed")
     
 ):
     client = openai.OpenAI()
+    
     # Read the image file and convert it to BASE64
     image_content = await image.read()
     base64_image = base64.b64encode(image_content).decode('utf-8')
-    
+    query: str = "What's in this image?"
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages = [
@@ -87,7 +88,7 @@ async def dovisionmagic(
                 "content": [
                     {
                      "type": "text",
-                     "text": query   
+                     "text": 
                     },
                     {
                         "type": "image_url",
