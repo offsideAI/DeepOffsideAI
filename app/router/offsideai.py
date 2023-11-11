@@ -117,8 +117,6 @@ async def dourlvisionmagic(
     client = openai.OpenAI()
     
     # Read the image file and convert it to BASE64
-    image_content = await image.read()
-    base64_image = base64.b64encode(image_content).decode('utf-8')
     query: str = "What's in this image?"
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
