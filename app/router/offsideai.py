@@ -1,12 +1,13 @@
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from typing import List
-from fastapi import APIRouter, Depends, status, HTTPException, Response, Query
+from fastapi import APIRouter, Depends, status, HTTPException, Response, Query, UploadFile, File 
 import database, models
 # from sqlalchemy.orm import Session
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 import oauth2
 import openai
+import base64
 
 router = APIRouter(
     tags = ['offsidei']
@@ -65,14 +66,19 @@ def dofunctioncalling(
     return response.choices[0].message.content
 
 @router.get('/offsideai/vision')
-def dovisionmagic(
+async def dovisionmagic(
     *,
     session: Session = Depends(database.get_session),
     current_user: models.User = Depends(oauth2.get_current_user),
-    query: str = Query(..., description="The content to send to the OffsideAI model")
+    query: str = Query(..., description="The content to send to the OffsideAI model"),
+    image: UploadFile = File(..., description="Image file to be processed")
     
 ):
     client = openai.OpenAI()
+    # Read the image file and convert it to BASE64
+    image_content = await image.read()
+    base64_image = base64.b64encode(image_content).decode('utf-8')
+    
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages = [
@@ -86,7 +92,7 @@ def dovisionmagic(
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+                            "url": f"data:image/jpeg;base64,{base64_image}"
                         } 
                     }
                 ]
