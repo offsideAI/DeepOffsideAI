@@ -141,3 +141,40 @@ async def dourlvisionmagic(
     )
     print(response.choices[0].message.content)
     return response.choices[0].message.content
+
+@router.get('/offsideai/docvision')
+async def dodocumentmagic(
+    *,
+    # session: Session = Depends(database.get_session),
+    # current_user: models.User = Depends(oauth2.get_current_user),
+    # query: str = Query(..., description="The content to send to the OffsideAI model"),
+    imageurl: str = Query(..., description="The url of the file")
+    
+):
+    client = openai.OpenAI()
+    
+    # Read the image file and convert it to BASE64
+    query: str = "Can you take the contents of this image and interpret and diagnose and summarize the information in simple terms?"
+    response = client.chat.completions.create(
+        model="gpt-4-vision-preview",
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                     "type": "text",
+                     "text": query 
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": imageurl
+                        } 
+                    }
+                ]
+            }
+        ],
+        max_tokens = 300
+    )
+    print(response.choices[0].message.content)
+    return response.choices[0].message.content 
