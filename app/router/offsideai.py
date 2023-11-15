@@ -8,6 +8,7 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 import oauth2
 import openai
 import base64
+import re
 
 router = APIRouter(
     tags = ['offsidei']
@@ -176,5 +177,6 @@ async def dodocumentmagic(
         ],
         max_tokens = 300
     )
-    print(response.choices[0].message.content)
-    return response.choices[0].message.content 
+    response_string: str = re.sub("\s+", "", response.choices[0].message.content)
+    print(response_string)
+    return response_string 
