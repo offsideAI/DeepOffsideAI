@@ -154,7 +154,7 @@ async def dodocumentmagic(
     client = openai.OpenAI()
     
     # Read the image file and convert it to BASE64
-    query: str = "Can you take the contents of this image and interpret and diagnose and summarize the information in simple terms?"
+    query: str = "Can you take the contents of this image and explain all the details and also interpret and summarize the information and suggest steps?"
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages = [
