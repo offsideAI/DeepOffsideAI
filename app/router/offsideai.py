@@ -106,7 +106,7 @@ async def dovisionmagic(
     return response.choices[0].message.content
 
 
-@router.get('/offsideai/vision')
+@router.get('/offsideai/urlvision')
 async def dourlvisionmagic(
     *,
     # session: Session = Depends(database.get_session),
