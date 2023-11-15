@@ -178,8 +178,24 @@ async def dodocumentmagic(
                 ]
             }
         ],
-        max_tokens = 300
+        max_tokens = 400
     )
     response_string: str = re.sub("\s+", " ", response.choices[0].message.content)
+    response_string = replace_patterns(response_string)
     print(response_string)
     return response_string 
+
+def replace_patterns(text):
+    # Pattern for **<string>**
+    pattern1 = r"\*\*<([^>]*)>\*\*"
+    replacement1 = r"<\1> Section"
+
+    # Pattern for ###
+    pattern2 = r"###"
+    replacement2 = "..."
+
+    # Perform replacements
+    text = re.sub(pattern1, replacement1, text)
+    text = re.sub(pattern2, replacement2, text)
+
+    return text
