@@ -140,8 +140,11 @@ async def dourlvisionmagic(
         ],
         max_tokens = 300
     )
-    print(response.choices[0].message.content)
-    return response.choices[0].message.content
+    response_string: str = re.sub("\s+", " ", response.choices[0].message.content)
+    print(response_string)
+    return response_string 
+    # print(response.choices[0].message.content)
+    # return response.choices[0].message.content
 
 @router.get('/offsideai/docvision')
 async def dodocumentmagic(
@@ -177,6 +180,6 @@ async def dodocumentmagic(
         ],
         max_tokens = 300
     )
-    response_string: str = re.sub("\s+", "", response.choices[0].message.content)
+    response_string: str = re.sub("\s+", " ", response.choices[0].message.content)
     print(response_string)
     return response_string 
