@@ -29,7 +29,7 @@ ALGORITHM = os.environ.get("ALGORITHM")
 # app = FastAPI()
 app = FastAPI(title ="ChatOffside API", version="0.1.0")
 
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+app.mount("/api", StaticFiles(directory="static", html=True), name="static")
 
 #We define authorizations for middleware components
 app.add_middleware(
