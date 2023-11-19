@@ -10,6 +10,9 @@ import openai
 import base64
 import re
 
+
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+
 router = APIRouter(
     tags = ['offsidei']
 )
@@ -184,6 +187,22 @@ async def dodocumentmagic(
     response_string = replace_patterns(response_string)
     print(response_string)
     return response_string 
+
+@router.get('/offsideai/assistant')
+async def doassistantmagic(
+    *,
+    # session: Session = Depends(database.get_session),
+    # current_user: models.User = Depends(oauth2.get_current_user),
+    # query: str = Query(..., description="The content to send to the OffsideAI model"),
+    # imageurl: str = Query(..., description="The url of the file")
+    
+):
+    client = openai.OpenAI()
+    assistant = client.beta.assistants.create(
+        name = "Bestie"
+        
+    )
+
 
 def replace_patterns(text):
     # Pattern for **<string>**
