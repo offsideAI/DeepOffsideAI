@@ -199,7 +199,7 @@ async def dovisioncountermagic(
     client = openai.OpenAI()
     
     # Read the image file and convert it to BASE64
-    query: str = "Can you take the contents of this image and count the number of items in the center of the image? Just return the number and the item name"
+    query: str = "Can you take the contents of this image and count the number of items in the central focus area of the image? Just return the number and the item name"
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages = [
