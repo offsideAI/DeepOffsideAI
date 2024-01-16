@@ -238,7 +238,7 @@ async def dovisionhashtagsmagic(
     client = openai.OpenAI()
     
     # Read the image file and convert it to BASE64
-    query: str = "Can you take the contents of this image and generate a list of 15 relevant hashtags. Focus on capturing the key themes and elements present in the image. Ensure the hashtags are suitable for use on social media platforms like Instagram and Twitter, emphasizing salient items in the image. Present the hashtags in a clear, list format."
+    query: str = "Can you take the contents of this image and generate a list of 15 relevant hashtags. Focus on capturing the key themes and elements present in the image. Ensure the hashtags are suitable for use on social media platforms like Instagram and Twitter, emphasizing salient items in the image. Present the hashtags in a clear, comma-seperated list, with no numbering. "
     response = client.chat.completions.create(
         model="gpt-4-vision-preview",
         messages = [
