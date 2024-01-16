@@ -11,7 +11,6 @@ import base64
 import re
 
 
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 router = APIRouter(
     tags = ['offsidei']
@@ -188,19 +187,57 @@ async def dodocumentmagic(
     print(response_string)
     return response_string 
 
+@router.get('/offsideai/visioncounter')
+async def dovisioncountermagic(
+    *,
+    # session: Session = Depends(database.get_session),
+    # current_user: models.User = Depends(oauth2.get_current_user),
+    # query: str = Query(..., description="The content to send to the OffsideAI model"),
+    imageurl: str = Query(..., description="The url of the file")
+    
+):
+    client = openai.OpenAI()
+    
+    # Read the image file and convert it to BASE64
+    query: str = "Can you take the contents of this image and count the number of items in the image?"
+    response = client.chat.completions.create(
+        model="gpt-4-vision-preview",
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                     "type": "text",
+                     "text": query 
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": imageurl
+                        } 
+                    }
+                ]
+            }
+        ],
+        max_tokens = 400
+    )
+    response_string: str = re.sub("\s+", " ", response.choices[0].message.content)
+    response_string = replace_patterns(response_string)
+    print(response_string)
+    return response_string 
+
 @router.get('/offsideai/assistant')
 async def doassistantmagic(
     *,
     # session: Session = Depends(database.get_session),
     # current_user: models.User = Depends(oauth2.get_current_user),
-    # query: str = Query(..., description="The content to send to the OffsideAI model"),
+    query: str = Query(..., description="The content to send to the OffsideAI model"),
     # imageurl: str = Query(..., description="The url of the file")
     
 ):
     client = openai.OpenAI()
     assistant = client.beta.assistants.create(
         name = "Bestie"
-        
     )
 
 
