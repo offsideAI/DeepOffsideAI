@@ -226,6 +226,49 @@ async def dovisioncountermagic(
     print(response_string)
     return response_string 
 
+@router.get('/offsideai/visionhashtags')
+async def dovisionhashtagsmagic(
+    *,
+    # session: Session = Depends(database.get_session),
+    # current_user: models.User = Depends(oauth2.get_current_user),
+    # query: str = Query(..., description="The content to send to the OffsideAI model"),
+    imageurl: str = Query(..., description="The url of the file")
+    
+):
+    client = openai.OpenAI()
+    
+    # Read the image file and convert it to BASE64
+    query: str = "Can you take the contents of this image and generate a list of 15 relevant hashtags. Focus on capturing the key themes and elements present in the image. Ensure the hashtags are suitable for use on social media platforms like Instagram and Twitter, emphasizing salient items in the image. Present the hashtags in a clear, list format.""
+    response = client.chat.completions.create(
+        model="gpt-4-vision-preview",
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                     "type": "text",
+                     "text": query 
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": imageurl
+                        } 
+                    }
+                ]
+            }
+        ],
+        max_tokens = 400
+    )
+    response_string: str = re.sub("\s+", " ", response.choices[0].message.content)
+    response_string = replace_patterns(response_string)
+    print(response_string)
+    return response_string 
+
+
+
+
+
 @router.get('/offsideai/assistant')
 async def doassistantmagic(
     *,
